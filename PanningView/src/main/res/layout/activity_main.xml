@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+	<com.fourmob.panningview.PanningView
+			android:id="@+id/panningView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@+id/view"
+			android:src="@drawable/bg_default_artist_art"
+			custom:panningDurationInMs="5000"/>
+
+	<LinearLayout
+			android:id="@+id/view"
+			android:layout_width="match_parent"
+			android:layout_height="150dp"
+			android:background="#AAEE88"
+			android:layout_alignParentBottom="true"
+			android:layout_centerHorizontal="true"
+			android:orientation="vertical"
+			android:gravity="center">
+
+
+		<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="start panning"
+				android:id="@+id/buttonStart"
+				android:layout_gravity="center"/>
+
+		<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="stop panning"
+				android:id="@+id/buttonStop"
+				android:layout_gravity="center"/>
+
+		<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="change drawable"
+				android:id="@+id/buttonChange"
+				android:layout_gravity="center"/>
+	</LinearLayout>
+
+</RelativeLayout>
