@@ -10,12 +10,13 @@
 			android:layout_height="match_parent"
 			android:layout_above="@+id/view"
 			android:src="@drawable/bg_default_artist_art"
+			custom:isTwoWays="false"
 			custom:panningDurationInMs="5000"/>
 
 	<LinearLayout
 			android:id="@+id/view"
 			android:layout_width="match_parent"
-			android:layout_height="150dp"
+			android:layout_height="200dp"
 			android:background="#AAEE88"
 			android:layout_alignParentBottom="true"
 			android:layout_centerHorizontal="true"
@@ -43,6 +44,13 @@
 				android:text="change drawable"
 				android:id="@+id/buttonChange"
 				android:layout_gravity="center"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="change two ways animation"
+			android:id="@+id/buttonTwoWays"
+			android:layout_gravity="center"/>
 	</LinearLayout>
 
 </RelativeLayout>

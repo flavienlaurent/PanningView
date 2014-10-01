@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<declare-styleable name="PanningView">
-		<attr name="panningDurationInMs" format="integer" />
+		<attr name="panningDurationInMs" format="integer"/>
+		<attr name="isTwoWays" format="boolean"/>
 	</declare-styleable>
 </resources>

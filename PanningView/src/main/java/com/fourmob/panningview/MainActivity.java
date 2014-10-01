@@ -14,6 +14,8 @@ public class MainActivity extends Activity {
 
 	private int mDrawableIndex = 0;
 
+	private boolean mIsTwoWayAnimation = false;
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,13 @@ public class MainActivity extends Activity {
 					mDrawableIndex = 0;
 				}
 				panningView.setImageResource(drawables[mDrawableIndex]);
+			}
+		});
+		findViewById(R.id.buttonTwoWays).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mIsTwoWayAnimation = !mIsTwoWayAnimation;
+				panningView.setTwoWaysAnimation(mIsTwoWayAnimation);
 			}
 		});
 	}
