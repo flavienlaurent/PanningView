@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
 
-	<com.fourmob.panningview.PanningView
+	<com.fourmob.panningview.library.PanningView
 			android:id="@+id/panningView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

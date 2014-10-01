@@ -1,1 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext {
+    sdkVersion = 19
+    toolsVersion = "19.1.0"
+}
+
+subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:0.12.+'
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}

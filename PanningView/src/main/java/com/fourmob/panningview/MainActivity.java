@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.fourmob.panningview.library.PanningView;
+
 public class MainActivity extends Activity {
 
 	private static final String TAG = "MainActivity";
