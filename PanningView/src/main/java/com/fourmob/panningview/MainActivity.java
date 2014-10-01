@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.fourmob.panningview.library.PanningView;
+
 public class MainActivity extends Activity {
 
 	private static final String TAG = "MainActivity";
@@ -11,6 +13,8 @@ public class MainActivity extends Activity {
 	private static final int[] drawables = new int[] {R.drawable.bg_default_artist_art, R.drawable.bg_default_artist_art2, R.drawable.bg_default_artist_art3, R.drawable.bg_default_artist_art4};
 
 	private int mDrawableIndex = 0;
+
+	private boolean mIsTwoWayAnimation = false;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,13 @@ public class MainActivity extends Activity {
 					mDrawableIndex = 0;
 				}
 				panningView.setImageResource(drawables[mDrawableIndex]);
+			}
+		});
+		findViewById(R.id.buttonTwoWays).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mIsTwoWayAnimation = !mIsTwoWayAnimation;
+				panningView.setTwoWaysAnimation(mIsTwoWayAnimation);
 			}
 		});
 	}

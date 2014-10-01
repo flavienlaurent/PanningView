@@ -1,4 +1,4 @@
-package com.fourmob.panningview;
+package com.fourmob.panningview.library;
 
 import android.content.res.Configuration;
 import android.graphics.Matrix;
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -19,6 +20,8 @@ import java.lang.ref.WeakReference;
 public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListener {
 
 	public static final int DEFAULT_PANNING_DURATION_IN_MS = 5000;
+
+	public static final boolean DEFAULT_PANNING_IS_TWO_WAY_ANIMATION = true;
 
 	private static final String TAG = "PanningViewAttacher";
 
@@ -42,6 +45,8 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 	private long mDuration;
 
+	private boolean mIsTwoWays;
+
 	private long mCurrentPlayTime;
 
 	private long mTotalTime;
@@ -50,16 +55,19 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 	private boolean mIsPanning;
 
-	public PanningViewAttacher(ImageView imageView, long duration) {
-		if(imageView == null) {
-			throw new IllegalArgumentException("imageView must not be null");
-		}
-		if(!hasDrawable(imageView)) {
-			throw new IllegalArgumentException("drawable must not be null");
-		}
-
+	public PanningViewAttacher(ImageView imageView, long duration, boolean isTwoWaysAnimation) {
 		mLinearInterpolator = new LinearInterpolator();
 		mDuration = duration;
+		mIsTwoWays = isTwoWaysAnimation;
+		if (imageView == null) {
+			throw new IllegalArgumentException("imageView must not be null");
+		}
+		if (hasDrawable(imageView)) {
+			setImageView(imageView);
+		}
+	}
+
+	public void setImageView(ImageView imageView) {
 		mImageView = new WeakReference<ImageView>(imageView);
 
 		mViewTreeObserver = imageView.getViewTreeObserver();
@@ -68,7 +76,7 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 		setImageViewScaleTypeMatrix(imageView);
 
 		mMatrix = imageView.getImageMatrix();
-		if(mMatrix == null) {
+		if (mMatrix == null) {
 			mMatrix = new Matrix();
 		}
 
@@ -76,7 +84,6 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 		update();
 	}
-
 
 
 	/**
@@ -138,7 +145,7 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 	 * Clean-up the resources attached to this object. This needs to be called
 	 * when the ImageView is no longer used. A good example is from
 	 * {@link android.view.View#onDetachedFromWindow()} or from {@link android.app.Activity#onDestroy()}.
-	 * This is automatically called if you are using {@link com.fourmob.panningview.PanningView}.
+	 * This is automatically called if you are using {@link PanningView}.
 	 */
 	public final void cleanup() {
 		if (null != mImageView) {
@@ -229,6 +236,12 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 		}
 	}
 
+	public void setTwoWaysAnimation(boolean isTwoWaysAnimation) {
+		mIsTwoWays = isTwoWaysAnimation;
+	}
+
+
+
 	private void animate_() {
 		refreshDisplayRect();
 		if(mWay == null) {
@@ -294,7 +307,11 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 			public void onAnimationEnd(Animator animation) {
 				Log.d(TAG, "animation has finished, startPanning in the other way");
 				changeWay();
-				animate_();
+				if (mIsTwoWays) {
+					animate_();
+				} else {
+					stopPanning();
+				}
 			}
 
 			@Override
