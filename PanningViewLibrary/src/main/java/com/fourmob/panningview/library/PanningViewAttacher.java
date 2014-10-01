@@ -56,16 +56,18 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 	private boolean mIsPanning;
 
 	public PanningViewAttacher(ImageView imageView, long duration, boolean isTwoWaysAnimation) {
-		if(imageView == null) {
-			throw new IllegalArgumentException("imageView must not be null");
-		}
-		if(!hasDrawable(imageView)) {
-			throw new IllegalArgumentException("drawable must not be null");
-		}
-
 		mLinearInterpolator = new LinearInterpolator();
 		mDuration = duration;
 		mIsTwoWays = isTwoWaysAnimation;
+		if (imageView == null) {
+			throw new IllegalArgumentException("imageView must not be null");
+		}
+		if (hasDrawable(imageView)) {
+			setImageView(imageView);
+		}
+	}
+
+	public void setImageView(ImageView imageView) {
 		mImageView = new WeakReference<ImageView>(imageView);
 
 		mViewTreeObserver = imageView.getViewTreeObserver();
@@ -74,7 +76,7 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 		setImageViewScaleTypeMatrix(imageView);
 
 		mMatrix = imageView.getImageMatrix();
-		if(mMatrix == null) {
+		if (mMatrix == null) {
 			mMatrix = new Matrix();
 		}
 
@@ -82,7 +84,6 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 		update();
 	}
-
 
 
 	/**

@@ -48,18 +48,21 @@ public class PanningView extends ImageView {
 	// setImageBitmap calls through to this method
 	public void setImageDrawable(Drawable drawable) {
 		super.setImageDrawable(drawable);
+		mAttacher.setImageView(this);
 		stopUpdateStartIfNecessary();
 	}
 
 	@Override
 	public void setImageResource(int resId) {
 		super.setImageResource(resId);
+		mAttacher.setImageView(this);
 		stopUpdateStartIfNecessary();
 	}
 
 	@Override
 	public void setImageURI(Uri uri) {
 		super.setImageURI(uri);
+		mAttacher.setImageView(this);
 		stopUpdateStartIfNecessary();
 	}
 
