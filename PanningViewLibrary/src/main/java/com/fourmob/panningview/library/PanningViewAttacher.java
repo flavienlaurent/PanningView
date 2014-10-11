@@ -1,4 +1,4 @@
-package com.fourmob.panningview;
+package com.fourmob.panningview.library;
 
 import android.content.res.Configuration;
 import android.graphics.Matrix;
@@ -138,7 +138,7 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 	 * Clean-up the resources attached to this object. This needs to be called
 	 * when the ImageView is no longer used. A good example is from
 	 * {@link android.view.View#onDetachedFromWindow()} or from {@link android.app.Activity#onDestroy()}.
-	 * This is automatically called if you are using {@link com.fourmob.panningview.PanningView}.
+	 * This is automatically called if you are using {@link PanningView}.
 	 */
 	public final void cleanup() {
 		if (null != mImageView) {

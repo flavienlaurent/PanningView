@@ -1,25 +1,13 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
-    }
-}
 apply plugin: 'android-library'
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     compile 'com.android.support:support-v4:13.0.+'
-    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile 'com.nineoldandroids:library:2.4.0'
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17.0.0"
+    compileSdkVersion sdkVersion
+    buildToolsVersion toolsVersion
 
     defaultConfig {
         minSdkVersion 7

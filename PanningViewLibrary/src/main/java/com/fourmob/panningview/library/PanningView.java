@@ -1,4 +1,4 @@
-package com.fourmob.panningview;
+package com.fourmob.panningview.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
