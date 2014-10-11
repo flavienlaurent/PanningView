@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
-    sdkVersion = 19
-    toolsVersion = "19.1.0"
+    sdkVersion = 20
+    toolsVersion = "20.0.0"
 }
 
 subprojects {

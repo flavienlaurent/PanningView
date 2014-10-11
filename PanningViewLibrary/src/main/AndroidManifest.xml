@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fourmob.panningview.library"
-    android:versionCode="100"
-    android:versionName="1.0">
+    package="com.fourmob.panningview.library">
 
-	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17" />
+    <application />
 
 </manifest>
