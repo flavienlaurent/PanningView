@@ -12,6 +12,7 @@ public class PanningView extends ImageView {
 	private final PanningViewAttacher mAttacher;
 
 	private int mPanningDurationInMs;
+	private boolean mIsTwoWaysAnimation;
 
 	public PanningView(Context context) {
 		this(context, null);
@@ -25,7 +26,7 @@ public class PanningView extends ImageView {
 		super(context, attr, defStyle);
 		readStyleParameters(context, attr);
 		super.setScaleType(ScaleType.MATRIX);
-		mAttacher = new PanningViewAttacher(this, mPanningDurationInMs);
+		mAttacher = new PanningViewAttacher(this, mPanningDurationInMs, mIsTwoWaysAnimation);
 	}
 
 	/**
@@ -36,6 +37,7 @@ public class PanningView extends ImageView {
 		TypedArray a = context.obtainStyledAttributes(attributeSet, R.styleable.PanningView);
 		try {
 			mPanningDurationInMs = a.getInt(R.styleable.PanningView_panningDurationInMs, PanningViewAttacher.DEFAULT_PANNING_DURATION_IN_MS);
+			mIsTwoWaysAnimation = a.getBoolean(R.styleable.PanningView_isTwoWays, PanningViewAttacher.DEFAULT_PANNING_IS_TWO_WAY_ANIMATION);
 		} finally {
 			a.recycle();
 		}
@@ -59,6 +61,11 @@ public class PanningView extends ImageView {
 	public void setImageURI(Uri uri) {
 		super.setImageURI(uri);
 		stopUpdateStartIfNecessary();
+	}
+
+	public void setTwoWaysAnimation(boolean isTwoWaysAnimation){
+		mIsTwoWaysAnimation = isTwoWaysAnimation;
+		mAttacher.setTwoWaysAnimation(mIsTwoWaysAnimation);
 	}
 
 	private void stopUpdateStartIfNecessary() {

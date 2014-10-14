@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -19,6 +20,8 @@ import java.lang.ref.WeakReference;
 public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListener {
 
 	public static final int DEFAULT_PANNING_DURATION_IN_MS = 5000;
+
+	public static final boolean DEFAULT_PANNING_IS_TWO_WAY_ANIMATION = true;
 
 	private static final String TAG = "PanningViewAttacher";
 
@@ -42,6 +45,8 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 	private long mDuration;
 
+	private boolean mIsTwoWays;
+
 	private long mCurrentPlayTime;
 
 	private long mTotalTime;
@@ -50,7 +55,7 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 	private boolean mIsPanning;
 
-	public PanningViewAttacher(ImageView imageView, long duration) {
+	public PanningViewAttacher(ImageView imageView, long duration, boolean isTwoWaysAnimation) {
 		if(imageView == null) {
 			throw new IllegalArgumentException("imageView must not be null");
 		}
@@ -60,6 +65,7 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 
 		mLinearInterpolator = new LinearInterpolator();
 		mDuration = duration;
+		mIsTwoWays = isTwoWaysAnimation;
 		mImageView = new WeakReference<ImageView>(imageView);
 
 		mViewTreeObserver = imageView.getViewTreeObserver();
@@ -229,6 +235,12 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 		}
 	}
 
+	public void setTwoWaysAnimation(boolean isTwoWaysAnimation) {
+		mIsTwoWays = isTwoWaysAnimation;
+	}
+
+
+
 	private void animate_() {
 		refreshDisplayRect();
 		if(mWay == null) {
@@ -294,7 +306,11 @@ public class PanningViewAttacher implements ViewTreeObserver.OnGlobalLayoutListe
 			public void onAnimationEnd(Animator animation) {
 				Log.d(TAG, "animation has finished, startPanning in the other way");
 				changeWay();
-				animate_();
+				if (mIsTwoWays) {
+					animate_();
+				} else {
+					stopPanning();
+				}
 			}
 
 			@Override
